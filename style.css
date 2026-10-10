@@ -1,0 +1,316 @@
+:root {
+    /* Background Gradient Colors */
+    --bg-gradient-1: #0f2027;
+    --bg-gradient-2: #203a43;
+    --bg-gradient-3: #2c5364;
+    
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.37);
+    
+    /* Text & Accent Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #a0aec0;
+    --accent: #00f2fe;
+    --accent-hover: #4facfe;
+    --danger: #ff4b4b;
+    --success: #00e676;
+    
+    /* Animations */
+    --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    padding: 20px;
+}
+
+/* Background Animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Main App Container (Glassmorphism Effect) */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+/* Input Area */
+.input-group {
+    display: flex;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.input-group:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+#todo-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 16px 20px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+}
+
+#todo-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#add-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    border: none;
+    width: 54px;
+    color: #000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-btn:hover {
+    box-shadow: -2px 0 15px rgba(0, 242, 254, 0.4);
+}
+
+#add-btn:active {
+    transform: scale(0.95);
+}
+
+/* Todo List Area */
+.todo-list-container {
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Custom Scrollbar for Webkit */
+.todo-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+.todo-list-container::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+.todo-list-container::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+.todo-list-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+#todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual Todo Items */
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: var(--transition);
+    
+    /* Enter Animation */
+    animation: slideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    transform-origin: top;
+    opacity: 0;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Exit Animation Class */
+.todo-item.deleting {
+    animation: slideOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+        margin-bottom: -60px; /* Collapse the gap dynamically */
+    }
+}
+
+.todo-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Checkbox Styles */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    margin-right: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.todo-item.completed .checkbox-container {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.checkbox-container i {
+    color: #111;
+    font-size: 0.8rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: var(--transition);
+}
+
+.todo-item.completed .checkbox-container i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.checkbox-container:hover {
+    border-color: var(--accent);
+}
+
+/* Task Text Styles */
+.todo-text {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: var(--transition);
+    word-break: break-word;
+}
+
+.todo-item.completed .todo-text {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    text-decoration-color: var(--text-secondary);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    color: var(--danger);
+    background: rgba(255, 75, 75, 0.1);
+}
+
+/* Stats Section */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#clear-all {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+#clear-all:hover {
+    color: var(--danger);
+}

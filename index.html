@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, glassmorphism-styled To-Do application built with Vanilla HTML, CSS, and JavaScript.">
+    <title>Premium Tasks</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>My Tasks</h1>
+            <p class="subtitle">Stay organized, stay creative.</p>
+        </header>
+        
+        <form id="todo-form">
+            <div class="input-group">
+                <input type="text" id="todo-input" placeholder="What needs to be done?" autocomplete="off" required>
+                <button type="submit" id="add-btn" aria-label="Add task"><i class="fas fa-plus"></i></button>
+            </div>
+        </form>
+
+        <div class="todo-list-container">
+            <ul id="todo-list">
+                <!-- Todo items will be dynamically injected here via JS -->
+            </ul>
+        </div>
+        
+        <div class="stats">
+            <span id="pending-tasks">0 tasks pending</span>
+            <button id="clear-all">Clear All</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
